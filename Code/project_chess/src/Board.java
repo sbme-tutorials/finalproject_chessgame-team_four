@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 public class Board extends JFrame{
     public static LinkedList<Piece> ps;
+    public int tilesize=95;
     public static Image[] imgs=new Image[12];
     public Image[] bords4 = new Image[4];
     Board newFrame;
@@ -20,7 +21,7 @@ public class Board extends JFrame{
         panel.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(0, 0, 2000, 880);
-        ImageIcon logo= new ImageIcon("src/chess_logo.jpg");
+        ImageIcon logo= new ImageIcon(ImageIO.read(ClassLoader.getSystemResourceAsStream("chess_logo.jpg")));
         this.setIconImage(logo.getImage());
         this.setTitle("Chess Game");
         this.setBackground(Color.LIGHT_GRAY);
@@ -69,7 +70,7 @@ public class Board extends JFrame{
 
     // cut 12 photos for pieces
     public static void getPiecesPhotos (Image[] imgs)throws IOException {
-        BufferedImage all= ImageIO.read(new File("src/chess.png"));
+        BufferedImage all= ImageIO.read(ClassLoader.getSystemResourceAsStream("chess.png"));
         int ind=0;
         for(int y=0;y<400;y+=200){
             for(int x=0;x<1200;x+=200){
@@ -81,7 +82,7 @@ public class Board extends JFrame{
 
     //Cut 4 photos for borders
     public static void getBordersPhotos (Image[] bords4) throws IOException {
-        BufferedImage bords = ImageIO.read(new File("src/borders_chess.jpg"));
+        BufferedImage bords = ImageIO.read(ClassLoader.getSystemResourceAsStream("borders_chess.jpg"));
         bords4[0] = bords.getSubimage(0, 10, 20, 530).getScaledInstance(20, 800, BufferedImage.SCALE_SMOOTH);
         bords4[1] = bords.getSubimage(10, 0, 530, 20).getScaledInstance(800, 20, BufferedImage.SCALE_SMOOTH);
         bords4[2] = bords.getSubimage(533, 10, 20, 530).getScaledInstance(20, 800, BufferedImage.SCALE_SMOOTH);
