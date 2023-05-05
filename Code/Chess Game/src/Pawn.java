@@ -11,32 +11,36 @@ public class Pawn extends Piece{
         this.name="Pawn";
         this.sprite=sheet.getSubimage(5*x_image,is_white?0:y_image,x_image,y_image).getScaledInstance(board.tilesize,board.tilesize, BufferedImage.SCALE_SMOOTH);
     }
-    public boolean isValidMovement(int col,int row){
-        int colorIndex=is_white?1:-1;
-        //push pawn 1
-        if (this.col==col && row==this.row-colorIndex && board.getPiece(col,row)==null)
+    public boolean isValidMovement(int col, int row) {
+        int colorIndex = is_white ? 1 : -1;
+        // push pawn 1
+        if (this.col == col && row == this.row - colorIndex && board.getPiece(col, row) == null) {
             return true;
-        //push pawn 2
-        if (isFirstMove && this.col==col && row==this.row-colorIndex*2 && board.getPiece(col,row)==null && board.getPiece(col,row+colorIndex)==null)
+        }
+        // push pawn 2
+        if (isFirstMove && this.col == col && row == this.row - colorIndex * 2 && board.getPiece(col, row) == null && board.getPiece(col, row + colorIndex) == null) {
             return true;
-        //capture left
-        if (col==this.col-1 && row==this.row-colorIndex && board.getPiece(col,row)!=null )
+        }
+        // capture diagonally left
+        if (col == this.col - 1 && row == this.row - colorIndex && board.getPiece(col, row) != null) {
             return true;
-        //capture right
-        if (col==this.col+1 && row==this.row-colorIndex && board.getPiece(col,row)!=null )
+        }
+        // capture diagonally right
+        if (col == this.col + 1 && row == this.row - colorIndex && board.getPiece(col, row) != null) {
             return true;
+        }
+        // capture piece in front
+        if (this.col == col && row == this.row - colorIndex && board.getPiece(col, row) != null) {
+            return true;
+        }
         // en passant left
-        if (board.getTileNum(col,row)==board.enPassantTile && col==this.col-1 && row==this.row-colorIndex && board.getPiece(col,row+colorIndex)!=null){
+        if (board.getTileNum(col, row) == board.enPassantTile && col == this.col - 1 && row == this.row - colorIndex && board.getPiece(col, row + colorIndex) != null) {
             return true;
         }
         // en passant right
-        if (board.getTileNum(col,row)==board.enPassantTile && col==this.col+1 && row==this.row-colorIndex && board.getPiece(col,row+colorIndex)!=null){
+        if (board.getTileNum(col, row) == board.enPassantTile && col == this.col + 1 && row == this.row - colorIndex && board.getPiece(col, row + colorIndex) != null) {
             return true;
         }
-
-
-
-
         return false;
     }
 

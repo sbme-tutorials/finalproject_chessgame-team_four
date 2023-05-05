@@ -22,6 +22,10 @@ public class CheckScanner {
                     hitByBishop(move.newCol, move.newRow, king, kingCol, kingRow, 1, -1) ||
                     hitByBishop(move.newCol, move.newRow, king, kingCol, kingRow, 1, 1) ||
                     hitByBishop(move.newCol, move.newRow, king, kingCol, kingRow, -1, 1) ||
+                    hitByQueen(move.newCol, move.newRow, king, kingCol, kingRow, -1, -1) ||
+                    hitByQueen(move.newCol, move.newRow, king, kingCol, kingRow, 1, -1) ||
+                    hitByQueen(move.newCol, move.newRow, king, kingCol, kingRow, 1, 1) ||
+                    hitByQueen(move.newCol, move.newRow, king, kingCol, kingRow, -1, 1) ||
                     hitByKnight(move.newCol, move.newRow, king, kingCol, kingRow) ||
                     hitByPawn(move.newCol, move.newRow, king, kingCol, kingRow) ||
                     hitByKing(king, kingCol, kingRow)){
@@ -37,6 +41,10 @@ public class CheckScanner {
                     hitByBishop(move.newCol, move.newRow, king, kingCol, kingRow, 1, -1) ||
                     hitByBishop(move.newCol, move.newRow, king, kingCol, kingRow, 1, 1) ||
                     hitByBishop(move.newCol, move.newRow, king, kingCol, kingRow, -1, 1) ||
+                    hitByQueen(move.newCol, move.newRow, king, kingCol, kingRow, -1, -1) ||
+                    hitByQueen(move.newCol, move.newRow, king, kingCol, kingRow, 1, -1) ||
+                    hitByQueen(move.newCol, move.newRow, king, kingCol, kingRow, 1, 1) ||
+                    hitByQueen(move.newCol, move.newRow, king, kingCol, kingRow, -1, 1) ||
                     hitByKnight(move.newCol, move.newRow, king, kingCol, kingRow) ||
                     hitByPawn(move.newCol, move.newRow, king, kingCol, kingRow) ||
                     hitByKing(king, kingCol, kingRow)){
@@ -64,7 +72,7 @@ public class CheckScanner {
     }
 
     private boolean hitByBishop(int col, int row, Piece king, int kingCol, int kingRow, int colVal, int rowVal) {
-        for (int i = 1; i < 8; i++) {
+        for (int i = 1; i < 3; i++) {
             if (kingCol - (i * colVal) == col && kingRow - (i * rowVal) == row)
                 break;
             Piece piece = board.getPiece(kingCol - (i * colVal), kingRow - (i * rowVal));
@@ -77,17 +85,39 @@ public class CheckScanner {
 
 
         }
+        if (kingCol-2==col || kingCol+2==col){
+            Piece piece=board.getPiece(col,row);
+            if (piece!=null && piece!=board.selectedPiece && board.sameTeam(piece,king) && piece.name.equals("Bishop")){
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean hitByQueen(int col, int row, Piece king, int kingCol, int kingRow, int colVal, int rowVal) {
+        for (int i = 1; i < 8; i++) {
+            if (kingCol - (i * colVal) == col && kingRow - (i * rowVal) == row)
+                break;
+            Piece piece = board.getPiece(kingCol - (i * colVal), kingRow - (i * rowVal));
+            if (piece != null && piece != board.selectedPiece) {
+                if (!board.sameTeam(piece, king) &&  (piece.name.equals("Queen"))) {
+                    return true;
+                }
+                break;
+            }
+
+
+        }
         return false;
     }
     private boolean hitByKnight(int col,int row,Piece king,int kingCol,int kingRow){
-        return checkKnight(board.getPiece(kingCol-1,kingRow -2),king,col,row) ||
+        return checkKnight(board.getPiece(kingCol-2,kingRow -1),king,col,row) ||
+                checkKnight(board.getPiece(kingCol-1,kingRow -2),king,col,row) ||
                 checkKnight(board.getPiece(kingCol+1,kingRow -2),king,col,row) ||
                 checkKnight(board.getPiece(kingCol+2,kingRow -1),king,col,row) ||
                 checkKnight(board.getPiece(kingCol+2,kingRow +1),king,col,row) ||
                 checkKnight(board.getPiece(kingCol+1,kingRow +2),king,col,row) ||
                 checkKnight(board.getPiece(kingCol-1,kingRow +2),king,col,row) ||
-                checkKnight(board.getPiece(kingCol-2,kingRow +1),king,col,row) ||
-                checkKnight(board.getPiece(kingCol-2,kingRow -1),king,col,row) ;
+                checkKnight(board.getPiece(kingCol-2,kingRow +1),king,col,row) ;
 
     }
     private boolean checkKnight(Piece p,Piece k,int col,int row){

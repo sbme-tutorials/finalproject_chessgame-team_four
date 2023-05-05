@@ -26,6 +26,22 @@ public class Board extends JPanel {
         }
         return null;
     }
+    public void changeDiagonalColor(Bishop bishop) {
+        int col = bishop.col;
+        int row = bishop.row;
+        int newCol = col + 1;
+        int newRow = row;
+        if (newCol >= cols) {
+            return;
+        }
+        if ((col + row) % 2 == (newCol + newRow) % 2) {
+            return;
+        }
+        bishop.col = newCol;
+        bishop.row = newRow;
+        bishop.xPos = newCol * tilesize;
+        bishop.yPos = newRow * tilesize;
+    }
 
     public void makeMove(Move move){
         if (move.piece.name.equals("Pawn")){
