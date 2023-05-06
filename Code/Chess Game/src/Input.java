@@ -41,4 +41,31 @@ public class Input extends MouseAdapter {
         board.selectedPiece=null;
         board.repaint();
     }
+  /*  public void mouseClicked(MouseEvent e) {
+        int col = e.getX() / board.tilesize;
+        int row = e.getY() / board.tilesize;
+        Piece piece = board.getPiece(col, row);
+        if (piece == null) {
+            return;
+        }
+        if (piece instanceof Bishop) {
+            Bishop bishop = (Bishop) piece;
+            board.changeDiagonalColor(bishop);
+            board.repaint();
+            return;
+        }
+        if (board.selectedPiece == null) {
+            if (board.sameTeam(piece, board.turn)) {
+                board.selectedPiece = piece;
+            }
+        } else {
+            Move move = new Move(board, board.selectedPiece, col, row);
+            if (board.isValidMove(move)) {
+                board.makeMove(move);
+                board.turn = board.turn == PieceColor.WHITE ? PieceColor.BLACK : PieceColor.WHITE;
+            }
+            board.selectedPiece = null;
+        }
+        board.repaint();
+    }*/
 }

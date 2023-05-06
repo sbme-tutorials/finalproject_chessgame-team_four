@@ -26,34 +26,32 @@ public class Board extends JPanel {
 
     public Board() throws IOException {
         getPiecesPhotos( imgs);
-        //this.setBounds(500,100,680,680);
         this.setPreferredSize(new Dimension(cols*tilesize,rows*tilesize));
-        //this.setLayout(new FlowLayout(FlowLayout.CENTER,400,30));
         this.setVisible(true);
         this.addMouseListener(input);
         this.addMouseMotionListener(input);
         addPieces();
 
 
-        //white killed panel contains white killed lapel which will be added in Board class to our board screen
-        wKilled_panel.setPreferredSize(new Dimension(120, 450));
+        //white killed panel contains white killed lapel
+        wKilled_panel.setPreferredSize(new Dimension(300, 600));
         wKilled_panel.setBackground(Color.LIGHT_GRAY);
-        wKilled_panel.setLayout(new FlowLayout(FlowLayout.LEFT,10,200));
+        wKilled_panel.setLayout(new FlowLayout(FlowLayout.LEFT,10,100));
 
         //white killed lapel contains white killed pieces
-        wKilled_lapel.setPreferredSize(new Dimension(120, 450));
+        wKilled_lapel.setPreferredSize(new Dimension(300, 600));
         wKilled_lapel.setLayout(new GridLayout(8,2));
         wKilled_panel.add(wKilled_lapel);
         wKilled_panel.setVisible(true);
 
 
-        //black killed panel contains black killed lapel which will be added in Board class to our board screen
-        bKilled_panel.setPreferredSize(new Dimension(120, 450));
+        //black killed panel contains black killed lapel
+        bKilled_panel.setPreferredSize(new Dimension(300, 600));
         bKilled_panel.setBackground(Color.LIGHT_GRAY);
-        bKilled_panel.setLayout(new FlowLayout(FlowLayout.RIGHT,10,200));
+        bKilled_panel.setLayout(new FlowLayout(FlowLayout.RIGHT,10,100));
 
         //black killed lapel contains black killed pieces
-        bKilled_lapel.setPreferredSize(new Dimension(120, 450));
+        bKilled_lapel.setPreferredSize(new Dimension(300, 600));
         bKilled_lapel.setLayout(new GridLayout(8,2));
         bKilled_panel.add(bKilled_lapel);
         bKilled_panel.setVisible(true);
@@ -158,7 +156,7 @@ public class Board extends JPanel {
                             JLabel wknight_label = new JLabel(new ImageIcon(temp_img));
                             wKilled_lapel.add(wknight_label);
                         }
-                        case "Rook" -> {
+                        case "Rock" -> {
                             Image temp_img = Board.imgs[4].getScaledInstance(60, 60, Image.SCALE_SMOOTH);
                             JLabel wrook_label = new JLabel(new ImageIcon(temp_img));
                             wKilled_lapel.add(wrook_label);
@@ -191,7 +189,7 @@ public class Board extends JPanel {
                             JLabel bknight_label = new JLabel(new ImageIcon(temp_img));
                             bKilled_lapel.add(bknight_label);
                         }
-                        case "Rook" -> {
+                        case "Rock" -> {
                             Image temp_img = Board.imgs[10].getScaledInstance(60, 60, Image.SCALE_SMOOTH);
                             JLabel brook_label = new JLabel(new ImageIcon(temp_img));
                             bKilled_lapel.add(brook_label);

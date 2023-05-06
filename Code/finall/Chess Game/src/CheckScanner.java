@@ -9,8 +9,8 @@ public class CheckScanner {
         Piece king = board.findKing(move.piece.is_white);
         assert king != null;
 
-        int kingCol = king.col;
-        int kingRow = king.row;
+        int kingCol ;
+        int kingRow ;
         if (board.selectedPiece != null && board.selectedPiece.name.equals("King")) {
             kingCol = move.newCol;
             kingRow = move.newRow;
