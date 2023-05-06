@@ -20,9 +20,9 @@ public class Board extends JPanel {
     }
     public Piece getPiece(int col,int row){
         for (Piece piece:piecelist){
-         if (piece.col==col && piece.row==row){
-             return piece;
-         }
+            if (piece.col==col && piece.row==row){
+                return piece;
+            }
         }
         return null;
     }
@@ -202,6 +202,3 @@ public class Board extends JPanel {
         }
     }
 }
-
-
-
