@@ -2,11 +2,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class Frame extends JFrame {
     public static JFrame frame = new JFrame();
     public Frame() throws IOException{
+
+        BufferedReader br = new BufferedReader(new FileReader("player.txt"));
+        String line;
+        String lastLine = "";
+        String[] fields = new String[0];
+        while ((line = br.readLine()) != null) {
+            fields = line.split(", ");
+            lastLine = line;
+        }
+        br.close();
 
         frame.setLayout(new GridBagLayout());
         frame.setMinimumSize(new Dimension(1000, 1000));
@@ -22,7 +34,7 @@ public class Frame extends JFrame {
 
         //black player panel
         JLabel black_player_label = new JLabel();
-        black_player_label.setText("BLACK PLAYER ");
+        black_player_label.setText(fields[2]);
         black_player_label.setFont(new Font("MV Boli", Font.PLAIN, 30));
 
         JPanel black_player_panel = new JPanel();
@@ -31,7 +43,7 @@ public class Frame extends JFrame {
 
         //white player panel
         JLabel white_player_label = new JLabel();
-        white_player_label.setText("WHITE PLAYER ");
+        white_player_label.setText(fields[1]);
         white_player_label.setFont(new Font("MV Boli", Font.PLAIN, 30));
 
         JPanel white_player_panel = new JPanel();
