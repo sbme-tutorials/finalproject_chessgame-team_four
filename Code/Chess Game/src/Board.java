@@ -32,7 +32,7 @@ public class Board extends JPanel {
         if (move.piece.name.equals("Pawn")){
             movePawn(move);
         }
-        else if (move.piece.name.equals("king")) {
+        else if (move.piece.name.equals("King")) {
             moveKing(move);
         }
         move.piece.col=move.newCol;
@@ -46,7 +46,6 @@ public class Board extends JPanel {
     private void moveKing(Move move){
         if (Math.abs(move.piece.col-move.newCol)==2){
             Piece rock;
-
             if (move.piece.col<move.newCol){
                 rock=getPiece(7,move.piece.row);
                  rock.col=5;
@@ -106,6 +105,9 @@ public class Board extends JPanel {
         }
     }
     public boolean isValidMove(Move move){
+        if (move.newRow<0 || move.newRow>8 || move.newCol<0 || move.newCol>8){
+            return false;
+        }
         if (sameTeam(move.piece, move.capture)){
             return false;
         }

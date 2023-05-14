@@ -151,9 +151,12 @@ public class CheckScanner {
         return checkPawn(board.getPiece(kingCol + 1, kingRow + colorVal), king, col, row) ||
                 checkPawn(board.getPiece(kingCol - 1, kingRow + colorVal), king, col, row) ||
                 checkPawn(board.getPiece(kingCol, kingRow + colorVal), king, col, row) ||
-                checkPawnFirstMove(board.getPiece(kingCol + 1, kingRow + colorValFM), king, col, row) ||
+               /* checkPawnFirstMove(board.getPiece(kingCol + 1, kingRow + colorValFM), king, col, row) ||
                 checkPawnFirstMove(board.getPiece(kingCol - 1, kingRow + colorValFM), king, col, row) ||
-                checkPawnFirstMove(board.getPiece(kingCol, kingRow + colorVal), king, col, row) ;
+                checkPawnFirstMove(board.getPiece(kingCol, kingRow + colorValFM), king, col, row) ||*/
+                checkPawnFirstMove(board.getPiece(kingCol, kingRow + colorValFM), king, col, row) ||
+                checkPawnFirstMove(board.getPiece(kingCol+1, kingRow + colorValFM), king, col, row)||
+                checkPawnFirstMove(board.getPiece(kingCol-1, kingRow + colorValFM), king, col, row);
 
 
     }
@@ -163,8 +166,15 @@ public class CheckScanner {
 
     }
 
-    private boolean checkPawnFirstMove(Piece p, Piece k, int col, int row) {
-        return p != null && !board.sameTeam(p, k) && p.name.equals("Pawn") && p.isFirstMove;
+   /* private boolean checkPawnFirstMove(Piece p, Piece k, int col, int row) {
+        return p != null && !board.sameTeam(p, k) && p.name.equals("Pawn") && p.isFirstMove ;
 
+    }*/
+    private boolean checkPawnFirstMove(Piece p, Piece k, int col, int row) {
+        if (p!=null) {
+            int colorVal=p.is_white?1:-1;
+            return p != null && !board.sameTeam(p, k) && p.name.equals("Pawn") && p.isFirstMove && board.getPiece(col,row+colorVal)==null;
+        }
+        return false;
     }
 }
