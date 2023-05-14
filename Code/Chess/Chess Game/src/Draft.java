@@ -123,3 +123,8 @@ public class Game {
         return false;
     }
 }*/
+public class Draft {
+
+
+
+}

@@ -1,5 +1,4 @@
 import java.awt.image.BufferedImage;
-
 public class Pawn extends Piece{
     public Pawn(Board board,int col,int row,boolean is_white){
         super(board);
@@ -43,6 +42,4 @@ public class Pawn extends Piece{
         }
         return false;
     }
-
-
 }

@@ -1,5 +1,4 @@
 import java.awt.image.BufferedImage;
-
 public class King extends Piece{
     public King(Board board,int col,int row,boolean is_white){
         super(board);
@@ -10,11 +9,9 @@ public class King extends Piece{
         this.is_white=is_white;
         this.name="King";
         this.sprite=sheet.getSubimage(0,is_white?0:y_image,x_image,y_image).getScaledInstance(board.tilesize,board.tilesize, BufferedImage.SCALE_SMOOTH);
-
-
     }
     public boolean isValidMovement(int col,int row){
-        return Math.abs((col-this.col)*(row-this.row))==1 || Math.abs(col-this.col)+Math.abs(row-this.row)==1 || canCastle(col,row);
+        return Math.abs((col-this.col)*(row-this.row)) == 1 || Math.abs(col-this.col)+Math.abs(row-this.row) == 1 || canCastle(col,row);
     }
     private boolean canCastle(int col,int row){
         if (this.row==row){
@@ -35,11 +32,7 @@ public class King extends Piece{
                 }
             }
         }
-
-
-
         return false;
-
     }
 }
 

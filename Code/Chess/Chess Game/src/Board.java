@@ -21,7 +21,6 @@ public class Board extends JPanel {
     public CheckScanner checkScanner=new CheckScanner(this);
     Input input=new Input(this);
     public int enPassantTile=-1;
-
     public static JLabel wKilled_lapel =new JLabel();
     public static JLabel bKilled_lapel=new JLabel();
     public static JPanel wKilled_panel=new JPanel();
@@ -30,6 +29,13 @@ public class Board extends JPanel {
 
     public Board() throws IOException {
 
+        this.setPreferredSize(new Dimension(cols*tilesize,rows*tilesize));
+        this.setVisible(true);
+        this.addMouseListener(input);
+        this.addMouseMotionListener(input);
+        getPiecesPhotos( imgs);
+        addPieces();
+
         Game.checkKingStatus(); // check if the game is over
         if (Game.gameOver) {
             JOptionPane.showMessageDialog(null, "Game over, " + (Game.turn==1 ? "Black" : "White") + " wins!");
@@ -37,34 +43,31 @@ public class Board extends JPanel {
             boardFrame.dispose(); // close the board frame
         }
 
-        getPiecesPhotos( imgs);
-        this.setPreferredSize(new Dimension(cols*tilesize,rows*tilesize));
-        this.setVisible(true);
-        this.addMouseListener(input);
-        this.addMouseMotionListener(input);
-        addPieces();
-
 
         //white killed panel contains white killed lapel
         wKilled_panel.setPreferredSize(new Dimension(300, 600));
-        wKilled_panel.setBackground(Color.LIGHT_GRAY);
-        wKilled_panel.setLayout(new FlowLayout(FlowLayout.LEFT,10,100));
+        wKilled_panel.setBackground(new Color(0x4C514E));
+        wKilled_panel.setLayout(new FlowLayout(FlowLayout.LEFT,40,100));
 
         //white killed lapel contains white killed pieces
         wKilled_lapel.setPreferredSize(new Dimension(300, 600));
         wKilled_lapel.setLayout(new GridLayout(8,2));
+
+        ImageIcon img=new ImageIcon("src/killed_background.jpg");
+        wKilled_lapel.setIcon(img);
         wKilled_panel.add(wKilled_lapel);
         wKilled_panel.setVisible(true);
 
 
         //black killed panel contains black killed lapel
         bKilled_panel.setPreferredSize(new Dimension(300, 600));
-        bKilled_panel.setBackground(Color.LIGHT_GRAY);
-        bKilled_panel.setLayout(new FlowLayout(FlowLayout.RIGHT,10,100));
+        bKilled_panel.setBackground(new Color(0x4C514E));
+        bKilled_panel.setLayout(new FlowLayout(FlowLayout.RIGHT,40,100));
 
         //black killed lapel contains black killed pieces
         bKilled_lapel.setPreferredSize(new Dimension(300, 600));
         bKilled_lapel.setLayout(new GridLayout(8,2));
+        bKilled_lapel.setIcon(img);
         bKilled_panel.add(bKilled_lapel);
         bKilled_panel.setVisible(true);
 
@@ -110,22 +113,21 @@ public class Board extends JPanel {
 
     private void movePawn(Move move) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         //en passant
-        int colorIndex=move.piece.is_white?1:-1;
-        if (getTileNum(move.newCol,move.newRow)==enPassantTile){
+        int colorIndex = move.piece.is_white?1:-1;
+        if (getTileNum(move.newCol, move.newRow) == enPassantTile){
             move.capture=getPiece(move.newCol,move.newRow+colorIndex);
         }
-        if (Math.abs(move.piece.row-move.newRow)==2){
-            enPassantTile=getTileNum(move.newCol,move.newRow+colorIndex);
+        if (Math.abs(move.piece.row - move.newRow) == 2){
+            enPassantTile=getTileNum(move.newCol, move.newRow+colorIndex);
         }else {
             enPassantTile=-1;
         }
+
         // promotions
-        colorIndex=move.piece.is_white? 0:7;
+        colorIndex = move.piece.is_white? 0:7;
         if (move.newRow == colorIndex){
             promotePawn(move);
         }
-
-
     }
 
     private void promotePawn(Move move) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
@@ -146,6 +148,47 @@ public class Board extends JPanel {
         capture(move.piece);
     }
 
+
+    public boolean isValidMove(Move move){
+        if(move.newCol<0 || move.newCol>7 || move.newRow<0 || move.newRow>7 ){
+            return false;
+        }
+        if (sameTeam(move.piece, move.capture)){
+            return false;
+        }
+        if (!move.piece.isValidMovement(move.newCol,move.newRow)){
+            return false;
+        }
+        if (move.piece.moveCollidesWithPiece(move.newCol,move.newRow)){
+            return false;
+        }
+        if (checkScanner.isKingChecked(move)){
+            return false;
+        }
+        if (move.capture != null && move.capture.name.equals("King")){
+            return false;
+        }
+
+        return true;
+    }
+    public boolean sameTeam(Piece piece1,Piece piece2){
+        if (piece1==null || piece2 ==null){
+            return false;
+        }
+        return piece1.is_white==piece2.is_white;
+
+    }
+    public int getTileNum(int col,int row){
+        return row*rows+col;
+    }
+    Piece findKing(boolean isWhite){
+        for (Piece piece:piecelist){
+            if (isWhite==piece.is_white && piece.name.equals("King")){
+                return piece;
+            }
+        }
+        return null;
+    }
 
 
     public void capture(Piece piece) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -241,39 +284,6 @@ public class Board extends JPanel {
                 }
             }
     }
-    public boolean isValidMove(Move move){
-        if (sameTeam(move.piece, move.capture)){
-            return false;
-        }
-        if (!move.piece.isValidMovement(move.newCol,move.newRow)){
-            return false;
-        }
-        if (move.piece.moveCollidesWithPiece(move.newCol,move.newRow)){
-            return false;
-        }
-        if (checkScanner.isKingChecked(move)){
-            return false;
-        }
-        return true;
-    }
-    public boolean sameTeam(Piece piece1,Piece piece2){
-        if (piece1==null || piece2 ==null){
-            return false;
-        }
-        return piece1.is_white==piece2.is_white;
-
-    }
-    public int getTileNum(int col,int row){
-        return row*rows+col;
-    }
-    Piece findKing(boolean isWhite){
-        for (Piece piece:piecelist){
-            if (isWhite==piece.is_white && piece.name.equals("King")){
-                return piece;
-            }
-        }
-        return null;
-    }
     public void addPieces(){
         piecelist.add(new Knight(this,1,0,false));
         piecelist.add(new Knight(this,6,0,false));
@@ -318,7 +328,7 @@ public class Board extends JPanel {
         //paint the board
         for (int r=0 ; r<rows ; r++){
             for (int c=0 ; c<cols ; c++){
-                g2d.setColor((c+r)%2==0? new Color(245,255,250):new Color(95, 158, 160));
+                g2d.setColor((c+r)%2==0? new Color(245,255,250):new Color(0xBDB7A7)); //new Color(95, 158, 160)
                 g2d.fillRect(c*tilesize,r*tilesize,tilesize,tilesize);
             }
         }
@@ -332,12 +342,12 @@ public class Board extends JPanel {
                         g2d.setColor(new Color(47, 187, 65, 121));
                         g2d.fillRect(c * tilesize, r * tilesize, tilesize, tilesize);
                     }
-                    //if ( move.piece.isValidMovement(c,r) && sameTeam(move.piece,move.capture) && !move.piece.moveCollidesWithPiece(c,r)  ) {
-                    if( selectedPiece.col==c && selectedPiece.row==r )   continue;
-                    if(move.piece.isValidMovement(c,r) && sameTeam(move.piece,move.capture) && !move.piece.moveCollidesWithPiece(c,r)){
 
-                            g2d.setColor(new Color(255, 8, 17, 121));
-                            g2d.fillRect(c * tilesize, r * tilesize, tilesize, tilesize);
+                    if( selectedPiece.col==c && selectedPiece.row==r )   continue;
+
+                    if(move.piece.isValidMovement(c,r) && sameTeam(move.piece,move.capture) && !move.piece.moveCollidesWithPiece(c,r)){
+                        g2d.setColor(new Color(255, 8, 17, 121));
+                        g2d.fillRect(c * tilesize, r * tilesize, tilesize, tilesize);
                     }
                 }
             }

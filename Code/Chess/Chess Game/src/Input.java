@@ -28,16 +28,17 @@ public class Input extends MouseAdapter {
         pressedRow=e.getY()/ board.tilesize;
         pieceXY= board.getPiece(pressedCol,pressedRow);
 
-        if (Game.isTurn(pieceXY , cond) && cond) {
-            board.selectedPiece = pieceXY;
-            hardPieces.add(pieceXY);
-            ind++;
-        }
-        else if (!cond){
-            if(( Game.isTurn(hardPieces.get(ind-1) , cond) )) {
+        if (pieceXY!=null ) {
+            if (Game.isTurn(pieceXY, cond) && cond) {
                 board.selectedPiece = pieceXY;
                 hardPieces.add(pieceXY);
                 ind++;
+            } else if (!cond) {
+                if ((Game.isTurn(hardPieces.get(ind - 1), cond))) {
+                    board.selectedPiece = pieceXY;
+                    hardPieces.add(pieceXY);
+                    ind++;
+                }
             }
         }
 
@@ -73,13 +74,18 @@ public class Input extends MouseAdapter {
                 board.selectedPiece.yPos = board.selectedPiece.row * board.tilesize;
             }
 
-            if (( releasedCol == pressedCol ) && ( releasedRow == pressedRow )) {
+          /*  if (( releasedCol == pressedCol ) && ( releasedRow == pressedRow )) {
                 cond = false;
             }
             else {
                 cond=true;
+            }*/
+            if (( pieceXY.col == pressedCol ) && ( pieceXY.row == pressedRow )) {
+                cond=false;
             }
-
+            else{
+                cond=true;
+            }
         }
         board.selectedPiece=null;
         board.repaint();

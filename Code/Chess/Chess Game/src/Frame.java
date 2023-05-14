@@ -28,7 +28,7 @@ public class Frame extends JFrame {
         frame.setIconImage(logo.getImage());
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setBackground(Color.LIGHT_GRAY);
+        frame.getContentPane().setBackground(new Color(0x4C514E));
         Board board=new Board();
 
 
@@ -39,7 +39,7 @@ public class Frame extends JFrame {
 
         JPanel black_player_panel = new JPanel();
         black_player_panel.add(black_player_label);
-        black_player_panel.setBackground(Color.LIGHT_GRAY);
+        black_player_panel.setBackground(new Color(0x4C514E));
 
         //white player panel
         JLabel white_player_label = new JLabel();
@@ -48,7 +48,7 @@ public class Frame extends JFrame {
 
         JPanel white_player_panel = new JPanel();
         white_player_panel.add(white_player_label);
-        white_player_panel.setBackground(Color.LIGHT_GRAY);
+        white_player_panel.setBackground(new Color(0x4C514E));
 
         //VS panel
         JLabel vs_label = new JLabel();
@@ -57,15 +57,15 @@ public class Frame extends JFrame {
 
         JPanel vs_panel = new JPanel();
         vs_panel.add(vs_label);
-        vs_panel.setBackground(Color.LIGHT_GRAY);
+        vs_panel.setBackground(new Color(0x4C514E));
 
         // panel el foo2
         JPanel player_panel = new JPanel();
         player_panel.setLayout(new BorderLayout());
-        player_panel.setBackground(Color.LIGHT_GRAY);
+        player_panel.setBackground(new Color(0x4C514E));
         player_panel.add(white_player_panel, BorderLayout.LINE_END);
         player_panel.add(vs_panel, BorderLayout.CENTER);
-        player_panel.add(black_player_panel, BorderLayout.BEFORE_LINE_BEGINS);
+        player_panel.add(black_player_panel, BorderLayout.LINE_START);
 
 
         //Borders
@@ -86,8 +86,12 @@ public class Frame extends JFrame {
 
 
         //last panel
+        //JLabel label=new JLabel();
+        //ImageIcon icon1=new ImageIcon("src/back1.jpg");
+        //label.setIcon(icon1);
         JPanel last_panel = new JPanel();
         last_panel.setLayout(new BorderLayout());
+        //last_panel.add(label);
         last_panel.add(player_panel,BorderLayout.NORTH);
         last_panel.add(Board.wKilled_panel, BorderLayout.EAST);
         last_panel.add(layeredPane, BorderLayout.CENTER);
@@ -95,7 +99,7 @@ public class Frame extends JFrame {
 
 
         frame.add(last_panel);
-        //frame.pack();
+        frame.pack();
         frame.setVisible(true);
     }
 }

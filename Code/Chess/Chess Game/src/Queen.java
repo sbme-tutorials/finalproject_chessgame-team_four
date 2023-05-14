@@ -66,11 +66,7 @@ public class Queen extends Piece{
                     if (board.getPiece(this.col+i,this.row+i)!=null)
                         return true;
         }
-
-
-
         return false;
-
     }
 }
 

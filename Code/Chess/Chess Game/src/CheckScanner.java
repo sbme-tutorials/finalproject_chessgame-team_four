@@ -1,16 +1,15 @@
 public class CheckScanner {
     Board board;
-
     public CheckScanner(Board board) {
         this.board = board;
     }
-
     public boolean isKingChecked(Move move) {
         Piece king = board.findKing(move.piece.is_white);
         assert king != null;
 
         int kingCol;
         int kingRow;
+
         if (board.selectedPiece != null && board.selectedPiece.name.equals("King")) {
             kingCol = move.newCol;
             kingRow = move.newRow;

@@ -20,12 +20,6 @@ public class Bishop extends Piece{
         if (colDiff == 1 && rowDiff == 0) {
             return true;
         }
-        /*if (moveCollidesWithPiece(col, row)) {
-            return false;
-        }*/
         return true;
     }
-
-
-
 }
