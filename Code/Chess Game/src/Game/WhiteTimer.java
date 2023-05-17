@@ -71,11 +71,13 @@ public class WhiteTimer extends JPanel {
     }
 
     public static void theTimeEnd() throws IOException {
+        BlackTimer.timer.stop();
         WhiteTimer.timer.stop();
         JOptionPane.showMessageDialog(null, "Game.Game over, " + (fields[2]) + " wins!");
         Frame boardFrame = new Frame();
         boardFrame.dispose(); // close the board frame
         ChessScoreBoard chessScore = new ChessScoreBoard(fields[1],fields[2]);
+        chessScore.updateScore("Black"+fields[2],Board.whiteScore, Board.blackScore);
         chessScore.setVisible(true);
     }
 }
