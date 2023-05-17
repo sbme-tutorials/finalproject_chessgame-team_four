@@ -74,7 +74,7 @@ public class BlackTimer extends JPanel {
         Frame boardFrame = new Frame();
         boardFrame.dispose(); // close the board frame
         ChessScoreBoard chessScore = new ChessScoreBoard(fields[1],fields[2]);
-                chessScore.updateScore("White"+fields[1], Board.whiteScore, Board.blackScore);
+              //  chessScore.updateScore("White"+fields[1], Board.whiteScore, Board.blackScore);
 
         chessScore.setVisible(true);
     }
