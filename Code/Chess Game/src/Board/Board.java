@@ -32,6 +32,8 @@ public class Board extends JPanel {
     public static JLabel bKilled_lapel=new JLabel();
     public static JPanel wKilled_panel=new JPanel();
     public static JPanel bKilled_panel=new JPanel();
+     public static int blackScore;
+    public static int whiteScore;
 
 
     public Board() throws IOException {
@@ -202,6 +204,7 @@ public class Board extends JPanel {
             killed_pieces.add(piece);
             piecelist.remove(piece);
             if (piece.is_white) {
+                blackScore+=50;
                 switch (piece.name) {
                     case "Queen" -> {
                             Image temp_img = Board.imgs[1].getScaledInstance(60, 60, Image.SCALE_SMOOTH);
@@ -242,6 +245,7 @@ public class Board extends JPanel {
                         }
                     }
                 } else {
+                whiteScore+=50;
                     switch (piece.name) {
                         case "Queen" -> {
                             Image temp_img = Board.imgs[7].getScaledInstance(60, 60, Image.SCALE_SMOOTH);
