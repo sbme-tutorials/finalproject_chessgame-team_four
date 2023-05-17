@@ -1,4 +1,6 @@
 package Frames;
+import Board.Board;
+
 import java.awt.*;
 import java.io.*;
 import javax.swing.BorderFactory;
@@ -7,6 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+
+import static Game.Game.fields;
+
 public class ChessScoreBoard extends JFrame {
     private JLabel player1NameLabel;
     private JLabel player2NameLabel;
@@ -23,7 +28,7 @@ public class ChessScoreBoard extends JFrame {
 
         // Create the main panel for the score board
         JPanel mainPanel = new JPanel(new GridBagLayout());
-        mainPanel.setBackground(Color.darkGray);
+        mainPanel.setBackground(new Color(0x4C514E));
         add(mainPanel);
 
         // Create the panels for the player names and scores
@@ -49,18 +54,7 @@ public class ChessScoreBoard extends JFrame {
         gbc.gridy = 0;
         gbc.weightx = 0;
         mainPanel.add(winnerLabel, gbc);
-
-        // Set the background image of the score board
-        /*try {
-            final Image backgroundImage = javax.imageio.ImageIO.read(new File("C:\\Users\\user\\Downloads\\X5UcUYz.jpeg"));
-            setContentPane(new JPanel(new BorderLayout()) {
-                @Override public void paintComponent(Graphics g) {
-                    g.drawImage(backgroundImage, 0, 0, null);
-                }
-            });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
+        updateScore("White",Board.whiteScore, Board.blackScore);
     }
 
     private JPanel createPlayerPanel(String playerName, boolean isPlayer1) {
@@ -102,20 +96,21 @@ public class ChessScoreBoard extends JFrame {
 
     public void updateScore(String winner, int whiteScore, int blackScore) {
         // Display the winner of the game with the color of the winning player
-        if (winner.equals("White")) {
+        if (winner.equals("White"+fields[1])) {
             winnerLabel.setText(player1NameLabel.getText() + " wins!");
-            winnerLabel.setForeground(Color.WHITE);
-        } else if (winner.equals("Black")) {
+          //  winnerLabel.setForeground(Color.WHITE);
+        } else if (winner.equals("Black"+fields[2])) {
             winnerLabel.setText(player2NameLabel.getText() + " wins!");
-            winnerLabel.setForeground(Color.BLACK);
+           // winnerLabel.setForeground(Color.BLACK);
         } else {
             winnerLabel.setText("Draw!");
-            winnerLabel.setForeground(Color.GRAY);
+           // winnerLabel.setForeground(Color.GRAY);
         }
+        winnerLabel.setForeground(new Color(0x4C514E));
 
         // Update the scores for each player
-        player1ScoreLabel.setText("Score: " + whiteScore);
-        player2ScoreLabel.setText("Score: " + blackScore);
+        player1ScoreLabel.setText("Score: " + Board.whiteScore);
+        player2ScoreLabel.setText("Score: " + Board.blackScore);
     }
 
     public static void main(String[] args) throws IOException {
@@ -140,7 +135,7 @@ public class ChessScoreBoard extends JFrame {
                 throw new RuntimeException(e);
             }
             scoreBoard.setVisible(true);
-            scoreBoard.updateScore("White", 2, 1);
+            scoreBoard.updateScore("White",Board.whiteScore, Board.blackScore);
         });
     }
 }
