@@ -22,8 +22,8 @@ ii. The score of the game are retrieved at the end.<br>
 <img src="https://github.com/sbme-tutorials/finalproject_chessgame-team_four/assets/111397736/a098eae3-5f6d-4368-8b98-e584588afe87">
 
 ## Contributors
-- [Contributor 1]([https://github.com/contributor1](https://github.com/hassnaa11))
-- [Contributor 2]([https://github.com/contributor2](https://github.com/shahdragab89))
-- [Contributor 3]([https://github.com/contributor3](https://github.com/PavlyAwad))
-- [Contributor 4]([https://github.com/contributor4](https://github.com/mohamedddyasserr))
-- [Contributor 5]([https://github.com/contributor5](https://github.com/menna1-allah))
+- [Hassnaa Hossam](https://github.com/hassnaa11)
+- [Shahd Ahmed](https://github.com/shahdragab89)
+- [Pavly Awad](https://github.com/PavlyAwad)
+- [Mohamed Yasser](https://github.com/mohamedddyasserr)
+- [Menna allah Ashraf](https://github.com/menna1-allah)
