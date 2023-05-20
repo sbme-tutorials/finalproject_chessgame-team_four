@@ -19,5 +19,5 @@ ii. The score of the game are retrieved at the end.<br>
 
 ## The Board
 
-<img src="https://github.com/sbme-tutorials/finalproject_chessgame-team_four/assets/111397736/5106ec18-8fa7-4d84-a51f-649b5453d1cc">
+<img src="https://github.com/sbme-tutorials/finalproject_chessgame-team_four/assets/111397736/a098eae3-5f6d-4368-8b98-e584588afe87">
 
